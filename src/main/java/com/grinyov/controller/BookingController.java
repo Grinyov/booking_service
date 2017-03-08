@@ -37,7 +37,7 @@ public class BookingController {
                 .collect(collectingAndThen(toList(), ImmutableList::copyOf));
     }
 
-    @RequestMapping(value = "/create")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public List<HotelBooking> create(@RequestBody HotelBooking hotelBooking){
         bookings.add(hotelBooking);
         return bookings;
