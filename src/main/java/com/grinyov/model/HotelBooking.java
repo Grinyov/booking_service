@@ -37,4 +37,8 @@ public class HotelBooking {
     public void setNumOfNight(int numOfNight) {
         this.numOfNight = numOfNight;
     }
+
+    public double getTotalPrice(){
+        return pricePerNight * numOfNight;
+    }
 }
