@@ -2,10 +2,7 @@ package com.grinyov.controller;
 
 import com.google.common.collect.ImmutableList;
 import com.grinyov.model.HotelBooking;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +35,11 @@ public class BookingController {
     public List<HotelBooking> getAffordable(@PathVariable double price){
         return bookings.stream().filter(x -> x.getPricePerNight() <= price)
                 .collect(collectingAndThen(toList(), ImmutableList::copyOf));
+    }
+
+    @RequestMapping(value = "/create")
+    public List<HotelBooking> create(@RequestBody HotelBooking hotelBooking){
+        bookings.add(hotelBooking);
+        return bookings;
     }
 }
