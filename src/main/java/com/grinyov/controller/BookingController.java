@@ -1,12 +1,17 @@
 package com.grinyov.controller;
 
+import com.google.common.collect.ImmutableList;
 import com.grinyov.model.HotelBooking;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by vgrinyov.
@@ -28,5 +33,10 @@ public class BookingController {
     public List<HotelBooking> getAll(){
         return bookings;
     }
-    
+
+    @RequestMapping(value = "/affordable/{price}", method = RequestMethod.GET)
+    public List<HotelBooking> getAffordable(@PathVariable double price){
+        return bookings.stream().filter(x -> x.getPricePerNight() <= price)
+                .collect(collectingAndThen(toList(), ImmutableList::copyOf));
+    }
 }
