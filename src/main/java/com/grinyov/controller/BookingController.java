@@ -1,7 +1,9 @@
 package com.grinyov.controller;
 
 import com.google.common.collect.ImmutableList;
+import com.grinyov.dao.BookingRepository;
 import com.grinyov.model.HotelBooking;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,30 +18,33 @@ import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping(value = "/booking")
 public class BookingController {
-    private List<HotelBooking> bookings;
+    private BookingRepository bookingRepository;
 
-    public BookingController(){
-        bookings = new ArrayList<>();
-
-        bookings.add(new HotelBooking("Marriot", 120.5, 7));
-        bookings.add(new HotelBooking("Sharm", 170.8, 5));
-        bookings.add(new HotelBooking("International", 230.0, 3));
+    @Autowired
+    public BookingController(BookingRepository bookingRepository){
+        this.bookingRepository = bookingRepository;
     }
+
+    public BookingController(){}
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<HotelBooking> getAll(){
-        return bookings;
+        return bookingRepository.findAll();
     }
 
     @RequestMapping(value = "/affordable/{price}", method = RequestMethod.GET)
     public List<HotelBooking> getAffordable(@PathVariable double price){
-        return bookings.stream().filter(x -> x.getPricePerNight() <= price)
-                .collect(collectingAndThen(toList(), ImmutableList::copyOf));
+        return bookingRepository.findByPricePerNightLessThan(price);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public List<HotelBooking> create(@RequestBody HotelBooking hotelBooking){
-        bookings.add(hotelBooking);
-        return bookings;
+        bookingRepository.save(hotelBooking);
+        return bookingRepository.findAll();
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public List<HotelBooking> remove(@PathVariable long id){
+        bookingRepository.delete(id);
     }
 }
