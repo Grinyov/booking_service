@@ -1,9 +1,18 @@
 package com.grinyov.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Created by vgrinyov.
  */
+@Entity
 public class HotelBooking {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
     private String hotelName;
     private double pricePerNight;
     private int numOfNight;
@@ -42,5 +51,13 @@ public class HotelBooking {
 
     public double getTotalPrice(){
         return pricePerNight * numOfNight;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
