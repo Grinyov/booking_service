@@ -23,6 +23,11 @@
 <div>
     <div class="row">
         <div class="col-lg-offset-2 col-lg-8">
+            <!-- Get all bookings or only affordable ones -->
+            <div class="btn-group" role="group">
+                <button ng-click="vm.getAll()" type="button" class="btn btn-default">All</button>
+                <button ng-click="vm.getAffordable()" type="button" class="btn btn-default">Less than 100$</button>
+            </div>
             <!-- Display bookings in a table -->
             <table class="table">
                 <thead>
