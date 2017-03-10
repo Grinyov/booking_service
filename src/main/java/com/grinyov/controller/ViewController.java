@@ -1,9 +1,10 @@
 package com.grinyov.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.print.DocFlavor;
+import java.util.Date;
 
 /**
  * Created by vgrinyov.
@@ -12,7 +13,10 @@ import javax.print.DocFlavor;
 public class ViewController {
 
     @RequestMapping("/")
-    public String index(){
+    public String index(Model model){
+        model.addAttribute("datetime", new Date());
+        model.addAttribute("username", "Unknown");
+        model.addAttribute("mode", "development");
         return "index";
     }
 
