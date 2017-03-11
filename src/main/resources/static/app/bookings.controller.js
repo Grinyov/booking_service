@@ -1,7 +1,3 @@
-/**
- * Created by green.
- */
-
 (function () {
     'use strict';
 
@@ -9,46 +5,43 @@
         .module('app')
         .controller('BookingsController', BookingsController);
 
-    BookingsController.$inject = [];
+    BookingsController.$inject = ['$http'];
 
     function BookingsController($http) {
-        var vw = this;
+        var vm = this;
+
+        vm.bookings = [];
         vm.getAll = getAll;
         vm.getAffordable = getAffordable;
         vm.deleteBooking = deleteBooking;
 
-
-        vm.bookings = [];
-
         init();
 
-        function init() {
+        function init(){
             getAll();
         }
 
-        function getAll() {
+        function getAll(){
             var url = "/bookings/all";
-            var bookingsPromise =$htpp.get(url);
-            bookingsPromise.then(function (response) {
+            var bookingsPromise = $http.get(url);
+            bookingsPromise.then(function(response){
                 vm.bookings = response.data;
             });
         }
 
-        function getAffordable() {
+        function getAffordable(){
             var url = "/bookings/affordable/" + 100;
-            var bookingsPromise =$htpp.get(url);
-            bookingsPromise.then(function (response) {
+            var bookingsPromise = $http.get(url);
+            bookingsPromise.then(function(response){
                 vm.bookings = response.data;
             });
         }
 
-        function deleteBooking(id) {
+        function deleteBooking(id){
             var url = "/bookings/delete/" + id;
-            $http.post(url).then(function (response) {
+            $http.post(url).then(function(response){
                 vm.bookings = response.data;
             });
         }
-
-
     }
-});
+})();

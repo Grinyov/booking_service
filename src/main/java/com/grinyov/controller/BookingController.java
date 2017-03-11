@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toList;
  * Created by vgrinyov.
  */
 @RestController
-@RequestMapping(value = "/booking")
+@RequestMapping(value = "/bookings")
 public class BookingController {
     private BookingRepository bookingRepository;
 

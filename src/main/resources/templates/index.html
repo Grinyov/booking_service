@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Booking service</title>
+    <meta charset="UTF-8" />
+    <title>Hotel Booking App</title>
     <link th:if="${mode == 'development'}" rel="stylesheet" href="../static/bootstrap.css" th:href="@{/bootstrap.css}" />
     <link th:if="${mode == 'production'}" rel="stylesheet" href="../static/bootstrap.min.css" th:href="@{/bootstrap.min.css}" />
     <script type="text/javascript" src="/static/angular.min.js" th:src="@{/angular.min.js}"></script>
     <script type="text/javascript" src="/static/app/app.module.js" th:src="@{/app/app.module.js}"></script>
     <script type="text/javascript" src="/static/app/bookings.controller.js" th:src="@{/app/bookings.controller.js}"></script>
 </head>
+<body ng-app="app" ng-controller="BookingsController as vm">
 <header>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -19,7 +20,7 @@
         </div>
     </nav>
 </header>
-<body>
+
 <div>
     <div class="row">
         <div class="col-lg-offset-2 col-lg-8">
@@ -28,6 +29,7 @@
                 <button ng-click="vm.getAll()" type="button" class="btn btn-default">All</button>
                 <button ng-click="vm.getAffordable()" type="button" class="btn btn-default">Less than 100$</button>
             </div>
+
             <!-- Display bookings in a table -->
             <table class="table">
                 <thead>
@@ -51,6 +53,7 @@
                 </tr>
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>
