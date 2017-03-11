@@ -53,7 +53,7 @@ public class BookingController {
         return bookingRepository.findAll();
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ApiMethod(description = "Remove the hotel bookings with the provided ID from the database")
     public List<HotelBooking> remove(@ApiPathParam(name = "id") @PathVariable long id){
         bookingRepository.delete(id);
